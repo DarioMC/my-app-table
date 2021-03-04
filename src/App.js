@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import { PaginationTable } from './components/PaginationTable'
+import { MainTable } from './components/MainTable'
 
 function App() {
   return (
     <div className="App">
-      <PaginationTable />
+      <MainTable />
     </div>
   )
 }

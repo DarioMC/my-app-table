@@ -6,7 +6,7 @@ import './table.css'
 import { GlobalFilter } from './GlobalFilter'
 
 
-export const PaginationTable = () => {
+export const MainTable = () => {
     const columns = useMemo(() => COLUMNS, [])
     const data = useMemo(() => MOCK_DATA, [])
 
