@@ -2,35 +2,29 @@ import { format} from 'date-fns'
 
 export const COLUMNS = [
     {
-        Header: 'Id',
-        Footer: 'Id',
-        accessor: 'id'
+        Header: 'Host_name',
+        accessor: 'host_name'
     },
     {
-        Header: 'First_name',
-        Footer: 'First_name',
-        accessor: 'first_name'
+        Header: 'Domain_name',
+        accessor: 'domain_name'
     },
     {
-        Header: 'Last_name',
-        Footer: 'Last_name',
-        accessor: 'last_name'
+        Header: 'Rule_mitre_tactic',
+        accessor: 'rule_mitre_tactic'
     },
     {
-        Header: 'Email',
-        Footer: 'Email',
-        accessor: 'email'
+        Header: 'Rule_mitre_technique',
+        accessor: 'rule_mitre_technique'
     },
     {
-        Header: 'Date_of_birth',
-        Footer: 'ate_of_birth',
-        accessor: 'date_of_birth',
+        Header: 'Timestamp',
+        accessor: 'timestamp',
         CellDate: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy')}  
 
     },
     {
         Header: 'Ip_address',
-        Footer: 'Ip_address',
         accessor: 'ip_address'
     }
 ]
