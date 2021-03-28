@@ -2,13 +2,14 @@ import React, { useMemo, useState , useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import axios from 'axios';
 import Chart from "react-google-charts";
-import MOCK_DATA from './jsondata.json';
+//import MOCK_DATA from './jsondata.json';
+import './chart.css'
 
 
 
 export const Charts = () => {
 
-    const urlApi = "https://localhost:44352/api/parser";
+    const urlApi = "https://localhost:44331/api/parser";
     const [jsonData , setData]=useState([]);
     
 
@@ -29,7 +30,7 @@ export const Charts = () => {
 
   //const jsonData            = useMemo(() => MOCK_DATA, [])
   var countIPs              = jsonData.reduce( (acc, o) => (acc[o.ipSourceAddr] = (acc[o.ipSourceAddr] || 0)+1, acc), {} );
-  console.log(jsonData);
+  //console.log(jsonData);
   // Severity Count
 
   var countAbuseIP          = jsonData.reduce( (acc, o) => (acc[o.abuseConfidence] = (acc[o.abuseConfidence] || 0)+1, acc), {} );
@@ -41,6 +42,9 @@ export const Charts = () => {
   })
   var totalEvents          = Object.values(countIPs);
 
+  // Total events by every ip
+  console.log(resultArray);
+
   // IPs per Country
 
   var countCountries       = jsonData.reduce( (acc, o) => (acc[o.countryName] = (acc[o.countryName] || 0)+1, acc), {} );
@@ -51,18 +55,20 @@ export const Charts = () => {
   var countriesChart       = constValuesPie.concat(resultArrayCountries); 
   var severityChart        = constValuesPie.concat(resultArrayConfidence);
 
+  
+
   return (
     <div className="App">
-      <header><h1>_________________________________________________________________________________________________________</h1></header>
+      
+      <hr></hr>
       <header><h1>Event Log Summary</h1></header>
-      <h2>Unique IPs</h2>
+      <p><h2>Unique IPs</h2></p>
       <h2>{uniqueIPs}</h2>
       <h2>TotalEvents</h2>
       <h2>{totalEventsSum}</h2>
-    <div>
       
-    
-      
+      <div id="container">
+    <div id="box1">
     <Chart
           width={'800px'}
           height={'400px'}
@@ -77,7 +83,7 @@ export const Charts = () => {
        rootProps={{ 'data-testid': '2' }}
 />
 </div>
-<div margin-right= "50px">
+<div id="box2" margin-right= "50px">
     <Chart
           width={'800px'}
           height={'400px'}
@@ -90,6 +96,7 @@ export const Charts = () => {
         }}
        rootProps={{ 'data-testid': '2' }}
 />
+</div>
 </div>
     </div>
   );

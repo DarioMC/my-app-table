@@ -11,7 +11,7 @@ import { GlobalFilter } from './GlobalFilter'
 
 export const MainTable = () => {
 
-    const urlApi = "https://localhost:44352/api/parser";
+    const urlApi = "https://localhost:44331/api/parser";
     const [data, setData]=useState([]);
 
 
@@ -62,7 +62,7 @@ export const MainTable = () => {
 
     return (
         <>
-        <div><br></br></div>
+        <hr></hr>
         <h1>Events Log Table</h1>
         <div><br></br></div>
         <GlobalFilter filter= {globalFilter} setFilter= {setGlobalFilter} />
