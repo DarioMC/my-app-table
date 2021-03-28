@@ -1,14 +1,36 @@
-import React, { useMemo } from 'react'
+import React, { useState, useMemo , useEffect  } from 'react'
 import { useTable, useGlobalFilter, useSortBy, usePagination} from 'react-table'
-import MOCK_DATA from './MOCK_DATA.json'
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import axios from 'axios';
+//import MOCK_DATA from './MOCK_DATA.json'
+import MOCK_DATA from './jsondata.json'
 import { COLUMNS } from './columns'
 import './table.css'
 import { GlobalFilter } from './GlobalFilter'
 
 
 export const MainTable = () => {
+
+    const urlApi = "https://localhost:44352/api/parser";
+    const [data, setData]=useState([]);
+
+
+    const requestGet=async()=>{
+        await axios.get(urlApi)
+        .then(response=>{
+          setData(response.data);
+        }).catch(error=>{
+          console.log(error);
+        })
+      }
+
+    useEffect(() => {
+        requestGet();
+      }, [])
+
+    
     const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => MOCK_DATA, [])
+    //const data = useMemo(() => MOCK_DATA, [])
 
     const { getTableProps,
             getTableBodyProps,
@@ -33,8 +55,15 @@ export const MainTable = () => {
 
         const { globalFilter, pageIndex, pageSize } = state
 
+    
+        var result = data.reduce( (acc, o) => (acc[o.SourceIP] = (acc[o.SourceIP] || 0)+1, acc), {} );
+
+        console.log(result);
+
     return (
         <>
+        <div><br></br></div>
+        <h1>Events Log Table</h1>
         <div><br></br></div>
         <GlobalFilter filter= {globalFilter} setFilter= {setGlobalFilter} />
         <div><br></br></div>
@@ -85,7 +114,7 @@ export const MainTable = () => {
             </span>
             <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
                 {
-                    [10, 25, 50].map(pageSize => (
+                    [10, 25].map(pageSize => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
